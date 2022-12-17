@@ -1,0 +1,120 @@
+#:kivy 1.0.9
+#:import kivy kivy
+#:import win kivy.core.window
+
+# <Photo>:
+#     # on_size: self.center = win.Window.center
+#     size: image.size
+#     # size_hint: 1, 1
+
+#     Image:
+#         id: image
+#         source: root.source
+#         size: 400, 400 / self.image_ratio
+
+
+Root:
+    photo_original: photo_original
+    photo_processed: photo_processed
+    # editor_pane: editor_pane
+    # size_hint: 1, 0.1
+
+    BoxLayout:
+        id: reactive_layout
+        padding: '2sp'
+        # orientation: 'vertical' if self.width < self.height else 'horizontal'
+        orientation: 'vertical'
+        size_hint: 1, 1
+        
+
+        # Splitter:
+        #     id: editor_pane
+        #     max_size: (reactive_layout.height if self.vertical else reactive_layout.width) - self.strip_size
+        #     min_size: sp(30) + self.strip_size
+        #     vertical: 1 if reactive_layout.width < reactive_layout.height else 0
+        #     sizable_from: 'bottom' if self.vertical else 'right'
+        #     size_hint: (1, None) if self.vertical else (None, 1)
+        #     size: 400, 400
+        #     on_vertical:
+        #         mid_size = self.max_size/2
+        #         if args[1]: self.height = mid_size
+        #         if not args[1]: self.width = mid_size
+
+            # FloatLayout:
+            # ScrollView:
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: 'Load'
+                on_release: root.show_load()
+            Button:
+                text: 'Save'
+                on_release: root.show_save()
+
+        BoxLayout:
+            # Scatter:
+            #     size_hint: 0.5, 1
+                # size: 100, 100
+                # pos: 100, 100
+            Image:
+                id: photo_original
+                source: root.source_original
+                size: 400, 400 / self.image_ratio
+
+        # FloatLayout:
+        # ScrollView:
+            # Scatter:
+            #     size_hint: 0.5, 1 
+                # size: 100, 100
+                # pos: 100, 100
+            Image:
+                id: photo_processed
+                source: root.source_processed
+                size: 400, 400 / self.image_ratio
+
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.path, filechooser.selection)
+
+<SaveDialog>:
+    text_input: text_input
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+            on_selection: text_input.text = self.selection and self.selection[0] or ''
+
+        TextInput:
+            id: text_input
+            size_hint_y: None
+            height: 30
+            multiline: False
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Save"
+                on_release: root.save(filechooser.path, text_input.text)

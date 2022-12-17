@@ -1,0 +1,3 @@
+title=Photo Converter
+author=boyuan_li
+orientation=landscape
