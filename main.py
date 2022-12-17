@@ -41,9 +41,6 @@ class Root(FloatLayout):
     source_original = StringProperty('')
     source_processed = StringProperty('')
 
-    # photo_original = ObjectProperty()
-    # editor_pane = ObjectProperty()
-    # photo_processed = ObjectProperty()
 
     loadfile = ObjectProperty(None)
     savefile = ObjectProperty(None)
@@ -113,36 +110,6 @@ class Root(FloatLayout):
 
 class ImageApp(App):
     pass
-    # def build(self):
-    #     root = BoxLayout(orientation='vertical')
-    #     layout_photo = PhotoLayout()
-
-    #     curdir = dirname(__file__)
-    #     index = 0
-    #     for filename in glob(join(curdir, 'images', '*')):
-    #         try:
-    #             # picture = Photo(source = filename)
-    #             if index == 0:
-    #                 layout_photo.photo_original.source = filename 
-    #             else:
-    #                 layout_photo.photo_processed.source = filename 
-    #         except Exception as e:
-    #             Logger.exception('Pictures: Unable to load <%s>' % filename)
-    #         index += 1
-
-    #     root.add_widget(layout_photo)
-
-    #     btn_open_picture = Button(text="Choose a Photo")
-
-    #     layout_menu = BoxLayout(size_hint=(1, None), height=50)
-    #     layout_menu.add_widget(btn_open_picture)
-
-    #     root.add_widget(layout_menu)
-
-    #     return root 
-
-    # def on_pause(self):
-    #     return True
 
 Factory.register('Root', cls=Root)
 Factory.register('LoadDialog', cls=LoadDialog)

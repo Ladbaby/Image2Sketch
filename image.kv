@@ -2,17 +2,6 @@
 #:import kivy kivy
 #:import win kivy.core.window
 
-# <Photo>:
-#     # on_size: self.center = win.Window.center
-#     size: image.size
-#     # size_hint: 1, 1
-
-#     Image:
-#         id: image
-#         source: root.source
-#         size: 400, 400 / self.image_ratio
-
-
 Root:
     photo_original: photo_original
     photo_processed: photo_processed
@@ -26,22 +15,6 @@ Root:
         orientation: 'vertical'
         size_hint: 1, 1
         
-
-        # Splitter:
-        #     id: editor_pane
-        #     max_size: (reactive_layout.height if self.vertical else reactive_layout.width) - self.strip_size
-        #     min_size: sp(30) + self.strip_size
-        #     vertical: 1 if reactive_layout.width < reactive_layout.height else 0
-        #     sizable_from: 'bottom' if self.vertical else 'right'
-        #     size_hint: (1, None) if self.vertical else (None, 1)
-        #     size: 400, 400
-        #     on_vertical:
-        #         mid_size = self.max_size/2
-        #         if args[1]: self.height = mid_size
-        #         if not args[1]: self.width = mid_size
-
-            # FloatLayout:
-            # ScrollView:
         BoxLayout:
             size_hint_y: None
             height: 30
