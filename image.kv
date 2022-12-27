@@ -51,8 +51,9 @@ Root:
         size: root.size
         pos: root.pos
         orientation: "vertical"
-        FileChooserListView:
+        FileChooserIconView:
             id: filechooser
+            font_name: root.font
 
         BoxLayout:
             size_hint_y: None
@@ -71,8 +72,9 @@ Root:
         size: root.size
         pos: root.pos
         orientation: "vertical"
-        FileChooserListView:
+        FileChooserIconView:
             id: filechooser
+            font_name: root.font
             on_selection: text_input.text = self.selection and self.selection[0] or ''
 
         TextInput:

@@ -1,9 +1,9 @@
 {
-    "python.defaultInterpreterPath": "~/.virtualenvs/python39/bin/python",
-    // "python.linting.pylintPath": "C:\\Users\\Firefly\\Apps\\Anaconda\\pkgs\\pylint-2.9.6-py39haa95532_1\\Scripts\\pylint.exe",
-    // "python.analysis.extraPaths": [
-    //     "C:\\Users\\Firefly\\Apps\\Anaconda\\envs\\python39\\Lib\\site-packages",
-    //     "C:\\Users\\Firefly\\Apps\\Anaconda\\Lib\\site-packages"
-    // ],
+    "python.defaultInterpreterPath": "C:\\Users\\Firefly\\Apps\\Anaconda\\envs\\python39\\python.exe",
+    "python.linting.pylintPath": "C:\\Users\\Firefly\\Apps\\Anaconda\\pkgs\\pylint-2.9.6-py39haa95532_1\\Scripts\\pylint.exe",
+    "python.analysis.extraPaths": [
+        "C:\\Users\\Firefly\\Apps\\Anaconda\\envs\\python39\\Lib\\site-packages",
+        "C:\\Users\\Firefly\\Apps\\Anaconda\\Lib\\site-packages"
+    ],
     // "python.pythonPath": "C:\\Users\\Firefly\\Apps\\Anaconda\\envs\\python39\\python.exe",
 }

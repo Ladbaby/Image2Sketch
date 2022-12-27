@@ -30,12 +30,26 @@ from method2 import method2
 class LoadDialog(FloatLayout):
     load = ObjectProperty(None)
     cancel = ObjectProperty(None)
+    font = StringProperty('Roboto')
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        if platform.system() == 'Windows':
+            self.font = "C:/Windows/Fonts/simsun.ttc"
 
 
 class SaveDialog(FloatLayout):
     save = ObjectProperty(None)
     text_input = ObjectProperty(None)
     cancel = ObjectProperty(None)
+    font = StringProperty('Roboto')
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        if platform.system() == 'Windows':
+            self.font = "C:/Windows/Fonts/simsun.ttc"
 
 class Root(FloatLayout):
     source_original = StringProperty('')
@@ -46,6 +60,14 @@ class Root(FloatLayout):
     savefile = ObjectProperty(None)
 
     temp_path = ''
+
+    font = StringProperty('Roboto')
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        if platform.system() == 'Windows':
+            self.font = "C:/Windows/Fonts/simsun.ttc"
 
     def dismiss_popup(self):
         self._popup.dismiss()
@@ -64,6 +86,8 @@ class Root(FloatLayout):
 
     def load(self, path, filename):
         file_path = os.path.join(path, filename[0])
+        if platform.system() == 'Windows':
+            file_path = file_path.encode('gbk').decode('utf-8')
         # file_path = path + filename[0]
 
         # delete previously used temp file
