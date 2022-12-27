@@ -4,7 +4,6 @@ import numpy as np
 import math
 from tqdm import tqdm
 import os
-import ntpath
 
 def bilateral_filter(src):
     src = cv2.cvtColor(src, cv2.COLOR_RGB2BGR)
@@ -60,7 +59,6 @@ def shadow_importance(src):
     intensity_matrix = np.zeros_like(src_Lab[:, :, 0])
     output = np.zeros_like(src_Lab[:, :, 0])
     def intensity(x_i):
-        # return math.sqrt(x_i[0] ** 2 + (x_i[1] - 128) ** 2 + (x_i[2] - 128) ** 2)
         return math.dist(x_i, [0, 0, 0])
 
     for i in range(len(src_Lab)):
@@ -68,8 +66,6 @@ def shadow_importance(src):
             intensity_matrix[i][j] = intensity(src_Lab[i][j])
 
     intensity_mean = intensity_matrix.mean()
-    # print(intensity_matrix)
-    # print(intensity_mean)
 
     for i in range(len(intensity_matrix)):
         for j in range(len(intensity_matrix[i])):
@@ -117,7 +113,7 @@ def method2(file_path):
     shadow_image = shadow(color_diff_image, shadow_importance_image, 0.039)
     final_image = (255 * outline_image * shadow_image).astype(int)
 
-    output_path = os.getcwd() + '/temp.jpg'
+    output_path = os.getcwd() + '/_temp_.jpg'
     cv2.imwrite( output_path, final_image)
 
     # plt.subplot(4, 2, 1)
