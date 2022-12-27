@@ -1,6 +1,7 @@
 /images/*
 /__pycache__/*
 /.vscode/*
+/release/*
 color_diff.jpg
 shadow_importance.jpg
 _temp_.jpg

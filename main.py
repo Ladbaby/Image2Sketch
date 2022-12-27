@@ -12,6 +12,9 @@ import os
 import shutil
 import concurrent.futures
 import platform
+from kivy.core.text import LabelBase
+if platform.system() == 'Windows':
+    LabelBase.register('Roboto', 'C:/Windows/Fonts/simsun.ttc')
 
 from method2 import method2
 
@@ -23,9 +26,6 @@ class LoadDialog(FloatLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        if platform.system() == 'Windows':
-            self.font = "C:/Windows/Fonts/simsun.ttc"
-
 class SaveDialog(FloatLayout):
     save = ObjectProperty(None)
     text_input = ObjectProperty(None)
@@ -34,9 +34,6 @@ class SaveDialog(FloatLayout):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-        if platform.system() == 'Windows':
-            self.font = "C:/Windows/Fonts/simsun.ttc"
 
 class Root(FloatLayout):
     source_original = StringProperty('')
@@ -51,9 +48,6 @@ class Root(FloatLayout):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-        if platform.system() == 'Windows':
-            self.font = "C:/Windows/Fonts/simsun.ttc"
 
     def dismiss_popup(self):
         self._popup.dismiss()
@@ -71,17 +65,15 @@ class Root(FloatLayout):
         self._popup.open()
 
     def load(self, path, filename):
+        print(path)
         file_path = os.path.join(path, filename[0])
-        if platform.system() == 'Windows':
-            file_path = file_path.encode('gbk').decode('utf-8')
-        # file_path = path + filename[0]
 
         # delete previously used temp file
         if os.path.exists(self.temp_path):
             os.remove(self.temp_path)
             print('File removed')
         else:
-            print('File does not exist')
+            print('Temp file does not exist')
 
         # check if the file exists
         if not os.path.exists(file_path):

@@ -5,6 +5,11 @@ import math
 from tqdm import tqdm
 import os
 
+# let opencv read non-ascii character
+def cv_imread(file_path):
+    cv_img = cv2.imdecode(np.fromfile(file_path,dtype=np.uint8), cv2.IMREAD_COLOR)
+    return cv_img
+
 def bilateral_filter(src):
     src = cv2.cvtColor(src, cv2.COLOR_RGB2BGR)
     # bilateral_filter_image = cv2.bilateralFilter(src, 9, 75, 75)
@@ -105,7 +110,7 @@ def shadow(src_diff, src_importance, T_S0):
 
 def method2(file_path):
     # read as rgb
-    src = cv2.imread(file_path)[:, :, ::-1]
+    src = cv_imread(file_path)[:, :, ::-1]
     bilateral_filter_image = bilateral_filter(src)
     color_diff_image = color_diff(bilateral_filter_image)
     shadow_importance_image = shadow_importance(bilateral_filter_image)
