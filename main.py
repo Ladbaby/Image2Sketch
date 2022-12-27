@@ -1,18 +1,9 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import (
-    NumericProperty, ReferenceListProperty, ObjectProperty, StringProperty
+    ObjectProperty, StringProperty
 )
-from kivy.clock import Clock
-
-from kivy.uix.boxlayout import BoxLayout
-from kivy.logger import Logger
-from kivy.uix.widget import Widget
 from kivy.uix.label import Label
-from kivy.uix.button import Button
-
-from glob import glob
-
 from kivy.factory import Factory
 from kivy.uix.popup import Popup
 from kivy.uix.floatlayout import FloatLayout
@@ -24,13 +15,9 @@ import platform
 
 from method2 import method2
 
-# class Photo(Widget):
-#     source = StringProperty(None)
-
 class LoadDialog(FloatLayout):
     load = ObjectProperty(None)
     cancel = ObjectProperty(None)
-
 
 class SaveDialog(FloatLayout):
     save = ObjectProperty(None)
@@ -40,7 +27,6 @@ class SaveDialog(FloatLayout):
 class Root(FloatLayout):
     source_original = StringProperty('')
     source_processed = StringProperty('')
-
 
     loadfile = ObjectProperty(None)
     savefile = ObjectProperty(None)
@@ -64,7 +50,6 @@ class Root(FloatLayout):
 
     def load(self, path, filename):
         file_path = os.path.join(path, filename[0])
-        # file_path = path + filename[0]
 
         # delete previously used temp file
         if os.path.exists(self.temp_path):
@@ -95,15 +80,11 @@ class Root(FloatLayout):
             if platform.system() == 'Linux' and self.temp_path[1] != '/':
                     self.temp_path = '/' + self.temp_path
 
-
         self.source_processed = self.temp_path
         popup_loading.dismiss()
         self.dismiss_popup()
 
-
     def save(self, path, filename):
-        # with open(os.path.join(path, filename), 'w') as stream:
-        #     stream.write(self.text_input.text)
         shutil.copy2(self.temp_path, os.path.join(path, filename))
 
         self.dismiss_popup()

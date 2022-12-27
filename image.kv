@@ -5,13 +5,10 @@
 Root:
     photo_original: photo_original
     photo_processed: photo_processed
-    # editor_pane: editor_pane
-    # size_hint: 1, 0.1
 
     BoxLayout:
         id: reactive_layout
         padding: '2sp'
-        # orientation: 'vertical' if self.width < self.height else 'horizontal'
         orientation: 'vertical'
         size_hint: 1, 1
         
@@ -26,21 +23,11 @@ Root:
                 on_release: root.show_save()
 
         BoxLayout:
-            # Scatter:
-            #     size_hint: 0.5, 1
-                # size: 100, 100
-                # pos: 100, 100
             Image:
                 id: photo_original
                 source: root.source_original
                 size: 400, 400 / self.image_ratio
 
-        # FloatLayout:
-        # ScrollView:
-            # Scatter:
-            #     size_hint: 0.5, 1 
-                # size: 100, 100
-                # pos: 100, 100
             Image:
                 id: photo_processed
                 source: root.source_processed
