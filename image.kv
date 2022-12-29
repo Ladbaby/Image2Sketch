@@ -17,14 +17,15 @@ Root:
             height: reactive_layout.height * 0.1
             Button:
                 text: 'Load'
-                font_size: 20
+                font_size: 30
                 on_release: root.show_load()
             Button:
                 text: 'Save'
-                font_size: 20
+                font_size: 30
                 on_release: root.show_save()
 
         BoxLayout:
+            orientation: 'vertical' if self.width < self.height else 'horizontal'
             Image:
                 id: photo_original
                 source: root.source_original
@@ -51,10 +52,12 @@ Root:
             height: load_dialog.height * 0.1
             Button:
                 text: "Cancel"
+                font_size: 30
                 on_release: root.cancel()
 
             Button:
                 text: "Load"
+                font_size: 30
                 on_release: root.load(filechooser.path, filechooser.selection)
 
 <SaveDialog>:
@@ -81,8 +84,10 @@ Root:
             height: save_dialog.height * 0.1
             Button:
                 text: "Cancel"
+                font_size: 30
                 on_release: root.cancel()
 
             Button:
                 text: "Save"
+                font_size: 30
                 on_release: root.save(filechooser.path, text_input.text)

@@ -28,9 +28,8 @@ class LoadDialog(FloatLayout):
         super().__init__(**kwargs)
         if platform.system() == 'Linux':
             if 'ANDROID_STORAGE' in os.environ:
-                from android.permissions import request_permissions, Permission
-                request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
-                # app_folder = os.path.dirname(os.path.abspath(__file__))
+                # from android.permissions import request_permissions, Permission
+                # request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
                 if os.path.exists('/storage/emulated/0'):
                     self.start_path = "/storage/emulated/0"
                 else:
@@ -56,7 +55,7 @@ class SaveDialog(FloatLayout):
                 if os.path.exists('/storage/emulated/0'):
                     self.start_path = "/storage/emulated/0"
                 else:
-                    self.start_path = os.getcwd()
+                    self.start_path = os.path.dirname(os.path.abspath(__file__))
             else:
                 self.start_path = "/home"
         elif platform.system() == 'Windows':
@@ -75,6 +74,9 @@ class Root(FloatLayout):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        if 'ANDROID_STORAGE' in os.environ:
+            from android.permissions import request_permissions, Permission
+            request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
 
     def dismiss_popup(self):
         self._popup.dismiss()
