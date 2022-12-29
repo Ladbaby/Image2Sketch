@@ -14,12 +14,14 @@ Root:
         
         BoxLayout:
             size_hint_y: None
-            height: 30
+            height: reactive_layout.height * 0.1
             Button:
                 text: 'Load'
+                font_size: 14
                 on_release: root.show_load()
             Button:
                 text: 'Save'
+                font_size: 14
                 on_release: root.show_save()
 
         BoxLayout:
@@ -41,6 +43,7 @@ Root:
         FileChooserIconView:
             id: filechooser
             font_name: root.font
+            path: root.start_path
 
         BoxLayout:
             size_hint_y: None
@@ -63,6 +66,7 @@ Root:
             id: filechooser
             font_name: root.font
             on_selection: text_input.text = self.selection and self.selection[0] or ''
+            path: root.start_path
 
         TextInput:
             id: text_input

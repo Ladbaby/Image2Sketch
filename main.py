@@ -22,18 +22,24 @@ class LoadDialog(FloatLayout):
     load = ObjectProperty(None)
     cancel = ObjectProperty(None)
     font = StringProperty('Roboto')
+    start_path = StringProperty("/")
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        if platform.system() == 'Linux':
+            self.start_path = ("/home")
 
 class SaveDialog(FloatLayout):
     save = ObjectProperty(None)
     text_input = ObjectProperty(None)
     cancel = ObjectProperty(None)
     font = StringProperty('Roboto')
+    start_path = StringProperty("/")
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        if platform.system() == 'Linux':
+            self.start_path = ("/home")
 
 class Root(FloatLayout):
     source_original = StringProperty('')

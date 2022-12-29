@@ -2,6 +2,9 @@
 /__pycache__/*
 /.vscode/*
 /release/*
+/.buildozer/*
+*.apk
+log.txt
 color_diff.jpg
 shadow_importance.jpg
 _temp_.jpg

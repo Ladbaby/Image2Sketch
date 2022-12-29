@@ -1,8 +1,8 @@
 import cv2
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import numpy as np
 import math
-from tqdm import tqdm
+# from tqdm import tqdm
 import os
 
 # let opencv read non-ascii character
@@ -27,7 +27,8 @@ def color_diff(src):
     # to Lab color space
     src_Lab = cv2.cvtColor(src, cv2.COLOR_RGB2LAB)
     output = np.zeros_like(src_Lab[:, :, 0])
-    for i in tqdm(range(1, len(src_Lab) - 1)): # rows, avoid overflow/underflow
+    # for i in tqdm(range(1, len(src_Lab) - 1)): # rows, avoid overflow/underflow
+    for i in range(1, len(src_Lab) - 1): # rows, avoid overflow/underflow
         for j in range(1, len(src_Lab[i]) - 1): # columns
             color_distance_list = []
             for k in range(-1, 2): # neighbor delta_x
