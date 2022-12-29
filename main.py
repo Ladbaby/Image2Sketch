@@ -22,24 +22,40 @@ class LoadDialog(FloatLayout):
     load = ObjectProperty(None)
     cancel = ObjectProperty(None)
     font = StringProperty('Roboto')
-    start_path = StringProperty("/")
+    start_path = StringProperty(".")
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         if platform.system() == 'Linux':
-            self.start_path = ("/home")
+            self.start_path = "/home"
+        elif platform.system() == 'Windows':
+            self.start_path = "C:\\Users"
+        elif platform.system() == 'Android':
+            if os.path.exists('/storage/emulated/0'):
+                self.start_path = ""
+            else:
+                self.start_path = "."
+                
+
 
 class SaveDialog(FloatLayout):
     save = ObjectProperty(None)
     text_input = ObjectProperty(None)
     cancel = ObjectProperty(None)
     font = StringProperty('Roboto')
-    start_path = StringProperty("/")
+    start_path = StringProperty(".")
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         if platform.system() == 'Linux':
-            self.start_path = ("/home")
+            self.start_path = "/home"
+        elif platform.system() == 'Windows':
+            self.start_path = "C:\\Users"
+        elif platform.system() == 'Android':
+            if os.path.exists('/storage/emulated/0'):
+                self.start_path = ""
+            else:
+                self.start_path = "."
 
 class Root(FloatLayout):
     source_original = StringProperty('')
