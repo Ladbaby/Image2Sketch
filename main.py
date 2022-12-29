@@ -27,14 +27,18 @@ class LoadDialog(FloatLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         if platform.system() == 'Linux':
-            self.start_path = "/home"
+            if 'ANDROID_STORAGE' in os.environ:
+                from android.permissions import request_permissions, Permission
+                request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
+                # app_folder = os.path.dirname(os.path.abspath(__file__))
+                if os.path.exists('/storage/emulated/0'):
+                    self.start_path = "/storage/emulated/0"
+                else:
+                    self.start_path = os.path.dirname(os.path.abspath(__file__))
+            else:
+                self.start_path = "/home"
         elif platform.system() == 'Windows':
             self.start_path = "C:\\Users"
-        elif platform.system() == 'Android':
-            if os.path.exists('/storage/emulated/0'):
-                self.start_path = ""
-            else:
-                self.start_path = "."
                 
 
 
@@ -48,14 +52,15 @@ class SaveDialog(FloatLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         if platform.system() == 'Linux':
-            self.start_path = "/home"
+            if 'ANDROID_STORAGE' in os.environ:
+                if os.path.exists('/storage/emulated/0'):
+                    self.start_path = "/storage/emulated/0"
+                else:
+                    self.start_path = os.getcwd()
+            else:
+                self.start_path = "/home"
         elif platform.system() == 'Windows':
             self.start_path = "C:\\Users"
-        elif platform.system() == 'Android':
-            if os.path.exists('/storage/emulated/0'):
-                self.start_path = ""
-            else:
-                self.start_path = "."
 
 class Root(FloatLayout):
     source_original = StringProperty('')

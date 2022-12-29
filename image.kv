@@ -17,11 +17,11 @@ Root:
             height: reactive_layout.height * 0.1
             Button:
                 text: 'Load'
-                font_size: 14
+                font_size: 20
                 on_release: root.show_load()
             Button:
                 text: 'Save'
-                font_size: 14
+                font_size: 20
                 on_release: root.show_save()
 
         BoxLayout:
@@ -37,6 +37,7 @@ Root:
 
 <LoadDialog>:
     BoxLayout:
+        id: load_dialog
         size: root.size
         pos: root.pos
         orientation: "vertical"
@@ -47,7 +48,7 @@ Root:
 
         BoxLayout:
             size_hint_y: None
-            height: 30
+            height: load_dialog.height * 0.1
             Button:
                 text: "Cancel"
                 on_release: root.cancel()
@@ -59,6 +60,7 @@ Root:
 <SaveDialog>:
     text_input: text_input
     BoxLayout:
+        id: save_dialog
         size: root.size
         pos: root.pos
         orientation: "vertical"
@@ -71,12 +73,12 @@ Root:
         TextInput:
             id: text_input
             size_hint_y: None
-            height: 30
+            height: save_dialog.height * 0.1
             multiline: False
 
         BoxLayout:
             size_hint_y: None
-            height: 30
+            height: save_dialog.height * 0.1
             Button:
                 text: "Cancel"
                 on_release: root.cancel()
