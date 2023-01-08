@@ -4,7 +4,6 @@ import numpy as np
 import math
 # from tqdm import tqdm
 import os
-import concurrent.futures
 
 # let opencv read non-ascii character
 def cv_imread(file_path):

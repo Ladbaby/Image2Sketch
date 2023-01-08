@@ -4,6 +4,7 @@
 /release/*
 /.buildozer/*
 *.apk
+*.aab
 log.txt
 color_diff.jpg
 shadow_importance.jpg
