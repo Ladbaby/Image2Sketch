@@ -4,6 +4,7 @@ import numpy as np
 import math
 # from tqdm import tqdm
 import os
+import concurrent.futures
 
 # let opencv read non-ascii character
 def cv_imread(file_path):
@@ -108,8 +109,6 @@ def shadow(src_diff, src_importance, T_S0):
     # return np.ones_like(output) - output
     return output
 
-
-
 def method2(file_path):
     # read as rgb
     src = cv_imread(file_path)[:, :, ::-1]
@@ -123,7 +122,7 @@ def method2(file_path):
 
     output_path = os.getcwd() + '/_temp_.jpg'
     cv2.imwrite( output_path, final_image)
-
+    
     # plt.subplot(4, 2, 1)
     # plt.imshow(src)
     # plt.axis('off')
@@ -162,7 +161,7 @@ def method2(file_path):
     # plt.tight_layout()
 
     # plt.show()
-    return output_path
+    return
 
 
 # test

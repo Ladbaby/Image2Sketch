@@ -7,11 +7,13 @@ from kivy.uix.label import Label
 from kivy.factory import Factory
 from kivy.uix.popup import Popup
 from kivy.uix.floatlayout import FloatLayout
+from kivy.clock import Clock
 
 import os
 import shutil
-import concurrent.futures
 import platform
+import time
+import threading
 from kivy.core.text import LabelBase
 if platform.system() == 'Windows':
     LabelBase.register('Roboto', 'C:/Windows/Fonts/simsun.ttc')
@@ -74,6 +76,10 @@ class Root(FloatLayout):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        if platform.system() == 'Windows':
+            self.temp_path = os.getcwd() + '\_temp_.jpg'
+        else:
+            self.temp_path = os.getcwd() + '/_temp_.jpg'
         if 'ANDROID_STORAGE' in os.environ:
             from android.permissions import request_permissions, Permission
             request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
@@ -94,7 +100,6 @@ class Root(FloatLayout):
         self._popup.open()
 
     def load(self, path, filename):
-        print(path)
         file_path = os.path.join(path, filename[0])
 
         # delete previously used temp file
@@ -106,8 +111,10 @@ class Root(FloatLayout):
 
         # check if the file exists
         if not os.path.exists(file_path):
-            popup_loading = Popup(title='Error', content=Label(text='Image does not exists'))
-            popup_loading.open()
+            self.popup_loading = Popup(title='Error', content=Label(text='Image does not exists'))
+            self.popup_loading.open()
+            time.sleep(1)
+            self.popup_loading.dismiss()
 
         # display original image
         if platform.system() == 'Linux' and file_path[1] != '/':
@@ -116,19 +123,30 @@ class Root(FloatLayout):
             self.source_original = file_path
 
         # process image
-        popup_loading = Popup(title='Inform', content=Label(text='Processing Image'),
+        self.popup_loading = Popup(title='Inform', content=Label(text='Processing Image... Please wait\n\nNote: Recommended image size is less than 449*362'),
               auto_dismiss=False)
-        popup_loading.open()
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            future = executor.submit(method2, file_path)
-            self.temp_path = future.result()
+        self.popup_loading.open()
+        
+        t = threading.Thread(target=method2, args=(file_path,))
+        # set daemon to true so the thread dies when app is closed
+        t.daemon = True
+        # start the thread
+        t.start()
 
-            if platform.system() == 'Linux' and self.temp_path[1] != '/':
-                    self.temp_path = '/' + self.temp_path
+        if platform.system() == 'Linux' and self.temp_path[1] != '/':
+            self.temp_path = '/' + self.temp_path
 
-        self.source_processed = self.temp_path
-        popup_loading.dismiss()
+        WAIT_SECONDS = 1
+        Clock.schedule_interval(self.monitor_temp, WAIT_SECONDS)
+        
         self.dismiss_popup()
+
+    def monitor_temp(self, dt):
+        if os.path.exists(self.temp_path):
+            self.source_processed = self.temp_path
+            self.popup_loading.dismiss()
+            return False
+        return True
 
     def save(self, path, filename):
         shutil.copy2(self.temp_path, os.path.join(path, filename))
