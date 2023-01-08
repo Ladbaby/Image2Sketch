@@ -14,7 +14,8 @@ def bilateral_filter(src):
     src = cv2.cvtColor(src, cv2.COLOR_RGB2BGR)
     # bilateral_filter_image = cv2.bilateralFilter(src, 9, 75, 75)
     # bilateral_filter_image = cv2.bilateralFilter(src, 3, 4.25, 4.25)
-    bilateral_filter_image = cv2.bilateralFilter(src, 9, 100, 100)
+    # bilateral_filter_image = cv2.bilateralFilter(src, 9, 100, 100)
+    bilateral_filter_image = cv2.bilateralFilter(src, 19, 50, 50)
     bilateral_filter_image = cv2.cvtColor(bilateral_filter_image, cv2.COLOR_BGR2RGB)
 
     return bilateral_filter_image
@@ -115,7 +116,8 @@ def method2(file_path):
     bilateral_filter_image = bilateral_filter(src)
     color_diff_image = color_diff(bilateral_filter_image)
     shadow_importance_image = shadow_importance(bilateral_filter_image)
-    outline_image = outline(color_diff_image, 0.164)
+    # outline_image = outline(color_diff_image, 0.164)
+    outline_image = outline(color_diff_image, 0.214)
     shadow_image = shadow(color_diff_image, shadow_importance_image, 0.039)
     final_image = (255 * outline_image * shadow_image).astype(int)
 
