@@ -4,6 +4,7 @@ import numpy as np
 import math
 # from tqdm import tqdm
 import os
+import platform
 
 # let opencv read non-ascii character
 def cv_imread(file_path):
@@ -110,17 +111,31 @@ def shadow(src_diff, src_importance, T_S0):
 
 def method2(file_path):
     # read as rgb
+    print(1)
     src = cv_imread(file_path)[:, :, ::-1]
+    print(2)
     bilateral_filter_image = bilateral_filter(src)
+    print(3)
     color_diff_image = color_diff(bilateral_filter_image)
+    print(4)
     shadow_importance_image = shadow_importance(bilateral_filter_image)
+    print(5)
     # outline_image = outline(color_diff_image, 0.164)
     outline_image = outline(color_diff_image, 0.214)
+    print(6)
     shadow_image = shadow(color_diff_image, shadow_importance_image, 0.039)
+    print(7)
     final_image = (255 * outline_image * shadow_image).astype(int)
-
-    output_path = os.getcwd() + '/_temp_.jpg'
-    cv2.imwrite( output_path, final_image)
+    print(8)
+    if platform.system() == 'Windows':
+        output_path = os.getcwd() + '\_temp_.jpg'
+    else:
+        output_path = os.getcwd() + '/_temp_.jpg'
+    # output_path = os.getcwd() + '/_temp_.jpg'
+    output_path = './_temp_.jpg'
+    ifSaved = cv2.imwrite( output_path, final_image)
+    print(ifSaved)
+    print(9)
     
     # plt.subplot(4, 2, 1)
     # plt.imshow(src)

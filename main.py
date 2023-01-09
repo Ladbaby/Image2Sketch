@@ -136,13 +136,16 @@ class Root(FloatLayout):
         if platform.system() == 'Linux' and self.temp_path[1] != '/':
             self.temp_path = '/' + self.temp_path
 
+        print('clock begin')
         WAIT_SECONDS = 1
         Clock.schedule_interval(self.monitor_temp, WAIT_SECONDS)
         
         self.dismiss_popup()
 
     def monitor_temp(self, dt):
+        print('tick')
         if os.path.exists(self.temp_path):
+            print('clock end')
             self.source_processed = self.temp_path
             self.popup_loading.dismiss()
             return False
